@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>দৈনিক রুটিন — Daily Routine</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0E3B36">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="দৈনিক রুটিন">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Amiri:wght@400;700&family=Inter:wght@400;500;600&family=Tiro+Bangla&display=swap');
 
@@ -552,6 +559,10 @@
 <script>
 (function(){
   const DHAKA = { lat: 23.8103, lon: 90.4125, name: "Dhaka, Bangladesh" };
+  // আপনার মসজিদের জামাতের সময় এখানে বদলে দিন (এইগুলো fixed, calculated azan সময়ের সাথে যোগ হয়ে দেখানো হয়)
+  const JAMAT_FAJR = "4:50 AM";
+  const JAMAT_ASR = "5:15 PM";
+  const JAMAT_ISHA = "8:30 PM";
   const statusEl = document.getElementById('locStatus');
   const useLocBtn = document.getElementById('useLocationBtn');
   const refreshBtn = document.getElementById('refreshBtn');
@@ -591,10 +602,10 @@
       const data = await res.json();
       const t = data.data.timings;
 
-      document.getElementById('time-fajr').textContent = to12h(t.Fajr) + ' (জামাত আনুমানিক ' + to12h(addMinutes(t.Fajr, 15)) + '+)';
-      document.getElementById('time-asr').textContent = to12h(t.Asr);
+      document.getElementById('time-fajr').textContent = to12h(t.Fajr) + ' (জামাত: ' + JAMAT_FAJR + ')';
+      document.getElementById('time-asr').textContent = to12h(t.Asr) + ' (জামাত: ' + JAMAT_ASR + ')';
       document.getElementById('time-maghrib').textContent = to12h(t.Maghrib);
-      document.getElementById('time-isha').textContent = to12h(t.Isha);
+      document.getElementById('time-isha').textContent = to12h(t.Isha) + ' (জামাত: ' + JAMAT_ISHA + ')';
       document.getElementById('time-maghrib-isha-gap').textContent = to12h(t.Maghrib) + ' – ' + to12h(t.Isha);
 
       ['row-asr','row-maghrib','row-isha'].forEach(function(id){ document.getElementById(id).classList.add('live'); });
@@ -629,6 +640,12 @@
   });
 
   loadTimings(DHAKA.lat, DHAKA.lon, DHAKA.name);
+
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){ /* SW not available on this host — app still works normally */ });
+    });
+  }
 })();
 </script>
 
