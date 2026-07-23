@@ -2,7 +2,7 @@
   "name": "আমার দৈনিক রুটিন — Daily Islamic Routine",
   "short_name": "দৈনিক রুটিন",
   "description": "Islamic prayer-time based daily productive routine tracker",
-  "start_url": "./daily_routine.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#F6F1E4",
