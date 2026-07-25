@@ -71,7 +71,7 @@
     background:
       radial-gradient(ellipse at 50% -10%, rgba(201,162,75,0.16), transparent 55%),
       linear-gradient(165deg, var(--night) 0%, var(--teal-deep) 58%, #123f38 100%);
-    padding:38px 16px 118px;
+    padding:38px 16px 96px;
     position:relative;
     overflow:hidden;
     text-align:center;
@@ -160,7 +160,7 @@
   .pill b{color:var(--maroon); font-weight:700;}
 
   /* ================= PRAYER STRIP ================= */
-  .strip-wrap{max-width:920px; margin:-72px auto 0; padding:0 14px; position:relative; z-index:4;}
+  .strip-wrap{max-width:920px; margin:-52px auto 0; padding:0 14px; position:relative; z-index:4;}
   .strip-card{background:var(--card); border-radius:20px; box-shadow:var(--shadow-lg); border:1px solid var(--line); padding:16px 14px 14px;}
   .strip-head{display:flex; align-items:baseline; justify-content:space-between; padding:0 4px 12px; flex-wrap:wrap; gap:6px;}
   .strip-head .label{font-family:'Fraunces', serif; font-weight:600; font-size:14px; color:var(--teal-deep);}
@@ -223,30 +223,29 @@
 
   .focus-card{
     background:linear-gradient(135deg, var(--teal-deep), var(--teal));
-    color:var(--cream); border-radius:18px; padding:18px 20px;
-    box-shadow:var(--shadow-sm); margin-bottom:16px;
+    color:var(--cream); border-radius:20px; padding:20px 22px;
+    box-shadow:var(--shadow-lg); margin-bottom:18px;
   }
   .focus-card .flabel{font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-light); margin-bottom:8px; font-weight:600;}
   .focus-text{
     font-family:'Tiro Bangla', serif; font-size:16px; line-height:1.6; min-height:26px;
-    outline:none; border-bottom:1px dashed rgba(232,213,160,0.4); padding-bottom:6px;
+    outline:none; padding-bottom:6px;
   }
   .focus-text:empty::before{content:"আজকের প্রধান লক্ষ্যটা এখানে লিখুন..."; opacity:0.55;}
 
-  .week-card{
-    background:var(--card); border:1px solid var(--line); border-radius:18px;
-    padding:16px 18px; box-shadow:var(--shadow-sm); margin-bottom:6px;
-  }
-  .week-card .wlabel{font-size:12px; font-weight:600; color:var(--teal-deep); margin-bottom:10px; font-family:'Tiro Bangla', serif;}
-  html[data-theme="dark"] .week-card .wlabel{color:var(--gold-light);}
-  .week-row{display:flex; justify-content:space-between; gap:4px;}
+  .today-divider{height:1px; background:rgba(232,213,160,0.22); margin:16px 0 14px;}
+
+  .week-card .wlabel{font-size:11px; letter-spacing:0.06em; font-weight:600; color:var(--gold-light); margin-bottom:10px; font-family:'Inter', sans-serif; text-transform:uppercase;}
+  .week-row{display:flex; justify-content:space-between; gap:5px;}
   .wday{flex:1; text-align:center;}
-  .wday .wname{font-size:10px; color:var(--sage); margin-bottom:5px;}
+  .wday .wname{font-size:10px; color:rgba(247,242,229,0.6); margin-bottom:6px;}
   .wday .wdot{
-    width:100%; aspect-ratio:1; border-radius:8px; background:var(--line);
-    display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--ink); font-weight:600;
+    width:100%; aspect-ratio:1; border-radius:9px; background:rgba(247,242,229,0.08);
+    border:1px solid rgba(232,213,160,0.15);
+    display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--cream); font-weight:600;
   }
-  .wday.today .wname{color:var(--maroon); font-weight:700;}
+  .wday.today .wname{color:var(--gold-light); font-weight:700;}
+  .wday.today .wdot{border-color:var(--gold);}
 
   /* ================= TIMELINE ================= */
   .section-title{display:flex; align-items:center; gap:12px; margin:34px 0 16px;}
@@ -265,6 +264,7 @@
     position:relative; display:grid; grid-template-columns:26px 90px 1fr; gap:12px;
     align-items:start; padding:14px 18px 14px 14px; border-bottom:1px solid var(--line);
   }
+  .row > *{min-width:0;}
   .row:last-child{border-bottom:none;}
   .row::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--sage); opacity:0.5;}
   .row.prayer::before{background:var(--gold); opacity:1;}
@@ -282,7 +282,7 @@
   html[data-theme="dark"] .time{color:var(--gold-light);}
   .row.prayer .time{color:var(--maroon);}
   html[data-theme="dark"] .row.prayer .time{color:#E39C8F;}
-  .task{font-size:14.5px; line-height:1.55; transition:opacity .2s ease;}
+  .task{font-size:14.5px; line-height:1.55; transition:opacity .2s ease; min-width:0; overflow-wrap:break-word; word-break:normal;}
   .row.checked .task{opacity:0.45; text-decoration:line-through; text-decoration-color:var(--sage);}
   .row.checked .time{opacity:0.55;}
   .task .tag{
@@ -329,11 +329,11 @@
 
   /* ================= MOBILE ================= */
   @media (max-width:600px){
-    .wall{padding:30px 12px 96px;}
+    .wall{padding:30px 12px 80px;}
     .niche{padding:30px 18px 24px;}
     .meta-row{gap:6px;}
     .pill{font-size:11px; padding:5px 11px;}
-    .strip-wrap{margin-top:-58px;}
+    .strip-wrap{margin-top:-40px;}
     .strip-card{padding:14px 10px 12px; border-radius:18px;}
     .prayer-row{grid-template-columns:repeat(5, 1fr); gap:5px;}
     .p-card{padding:12px 2px 8px; border-radius:16px 16px 6px 6px;}
@@ -355,8 +355,8 @@
   }
 
   @media (max-width:380px){
-    .row{grid-template-columns:20px 1fr; gap:6px;}
-    .time{padding-top:0;}
+    .row{grid-template-columns:20px 58px 1fr; gap:6px; padding-left:10px; padding-right:12px;}
+    .time{padding-top:0; font-size:11px;}
     .p-card .ptime{font-size:9.5px;}
   }
 </style>
@@ -434,11 +434,11 @@
   <div class="focus-card reveal" style="animation-delay:.08s">
     <div class="flabel">🎯 আজকের প্রধান ফোকাস</div>
     <div class="focus-text" id="focusText" contenteditable="true"></div>
-  </div>
-
-  <div class="week-card reveal" style="animation-delay:.1s">
-    <div class="wlabel">এই সপ্তাহের অগ্রগতি</div>
-    <div class="week-row" id="weekRow"></div>
+    <div class="today-divider"></div>
+    <div class="week-card">
+      <div class="wlabel">এই সপ্তাহের অগ্রগতি</div>
+      <div class="week-row" id="weekRow"></div>
+    </div>
   </div>
 
   <div class="section-title reveal" id="sec-morning" style="animation-delay:.1s">
