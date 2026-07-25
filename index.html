@@ -32,6 +32,16 @@
     --shadow-sm:0 8px 22px rgba(8,32,29,0.10);
   }
 
+  html[data-theme="dark"]{
+    --cream:#0B211D;
+    --card:#132E28;
+    --ink:#EDE6D6;
+    --line:rgba(232,213,160,0.14);
+    --sage:#8FB09A;
+    --shadow-lg:0 24px 60px rgba(0,0,0,0.5);
+    --shadow-sm:0 8px 22px rgba(0,0,0,0.35);
+  }
+
   *{box-sizing:border-box;}
   html{-webkit-text-size-adjust:100%; scroll-behavior:smooth;}
   :focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
@@ -46,6 +56,7 @@
     color:var(--ink);
     padding:0 0 70px;
     overflow-x:hidden;
+    transition:background .3s ease, color .3s ease;
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -71,6 +82,13 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'%3E%3Cg fill='none' stroke='%23C9A24B' stroke-width='0.55' opacity='0.16'%3E%3Cpath d='M65 6 L124 65 L65 124 L6 65 Z'/%3E%3Ccircle cx='65' cy='65' r='42'/%3E%3Cpath d='M65 24 L106 65 L65 106 L24 65 Z'/%3E%3C/g%3E%3C/svg%3E");
     background-size:130px;
   }
+  .theme-toggle{
+    position:absolute; top:16px; right:16px; z-index:5;
+    width:36px; height:36px; border-radius:50%;
+    border:1px solid rgba(201,162,75,0.5); background:rgba(246,241,228,0.08);
+    color:var(--gold-light); font-size:16px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
   .eyebrow{
     position:relative;
     letter-spacing:0.22em;
@@ -83,39 +101,44 @@
 
   .niche{
     position:relative;
-    max-width:480px;
+    max-width:460px;
     margin:0 auto;
     background:linear-gradient(180deg, rgba(247,242,229,0.98), rgba(247,242,229,0.94));
-    border:1px solid rgba(201,162,75,0.55);
-    border-bottom:none;
-    border-radius:50% 50% 6px 6px / 34% 34% 6px 6px;
-    padding:38px 26px 30px;
-    box-shadow:0 20px 50px rgba(8,32,29,0.35), inset 0 0 0 6px rgba(255,255,255,0.5);
-  }
-  .niche::before{
-    content:"";
-    position:absolute; left:14px; right:14px; top:14px; bottom:10px;
     border:1px solid rgba(201,162,75,0.4);
-    border-bottom:none;
-    border-radius:50% 50% 4px 4px / 30% 30% 4px 4px;
-    pointer-events:none;
+    border-radius:26px;
+    padding:34px 28px 30px;
+    box-shadow:0 22px 50px rgba(8,32,29,0.35);
   }
+  html[data-theme="dark"] .niche{
+    background:linear-gradient(180deg, rgba(19,46,40,0.98), rgba(19,46,40,0.94));
+    box-shadow:0 22px 50px rgba(0,0,0,0.5);
+  }
+  .arch-ornament{display:block; margin:0 auto 14px; opacity:0.85;}
   h1{
     position:relative;
     font-family:'Tiro Bangla', serif;
-    font-size:clamp(24px, 6.4vw, 34px);
-    margin:0 0 6px;
+    font-size:clamp(23px, 6vw, 32px);
+    margin:0 0 8px;
     font-weight:700;
     color:var(--teal-deep);
     letter-spacing:0.3px;
     line-height:1.25;
   }
+  html[data-theme="dark"] h1{color:var(--gold-light);}
   .subtitle{
     position:relative;
     font-family:'Amiri', serif;
     font-size:clamp(13px, 3.2vw, 16px);
     color:var(--gold-dim);
-    margin:0 0 18px;
+    margin:0 0 16px;
+    padding-bottom:16px;
+    border-bottom:1px solid rgba(201,162,75,0.25);
+  }
+  .streak-badge{
+    display:inline-flex; align-items:center; gap:5px;
+    background:rgba(139,74,66,0.08); border:1px solid rgba(139,74,66,0.3);
+    color:var(--maroon); font-size:11.5px; font-weight:600;
+    padding:5px 12px; border-radius:20px; margin-bottom:16px;
   }
   .meta-row{
     position:relative;
@@ -133,98 +156,39 @@
     color:var(--teal-deep);
     white-space:nowrap;
   }
+  html[data-theme="dark"] .pill{color:var(--ink); border-color:var(--line);}
   .pill b{color:var(--maroon); font-weight:700;}
 
   /* ================= PRAYER STRIP ================= */
-  .strip-wrap{
-    max-width:920px;
-    margin:-72px auto 0;
-    padding:0 14px;
-    position:relative;
-    z-index:4;
-  }
-  .strip-card{
-    background:var(--card);
-    border-radius:20px;
-    box-shadow:var(--shadow-lg);
-    border:1px solid var(--line);
-    padding:16px 14px 14px;
-  }
-  .strip-head{
-    display:flex; align-items:baseline; justify-content:space-between;
-    padding:0 4px 12px;
-    flex-wrap:wrap;
-    gap:6px;
-  }
-  .strip-head .label{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:14px;
-    color:var(--teal-deep);
-    letter-spacing:0.02em;
-  }
-  #countdown{
-    font-size:11.5px;
-    color:var(--sage);
-    font-weight:500;
-  }
+  .strip-wrap{max-width:920px; margin:-72px auto 0; padding:0 14px; position:relative; z-index:4;}
+  .strip-card{background:var(--card); border-radius:20px; box-shadow:var(--shadow-lg); border:1px solid var(--line); padding:16px 14px 14px;}
+  .strip-head{display:flex; align-items:baseline; justify-content:space-between; padding:0 4px 12px; flex-wrap:wrap; gap:6px;}
+  .strip-head .label{font-family:'Fraunces', serif; font-weight:600; font-size:14px; color:var(--teal-deep);}
+  html[data-theme="dark"] .strip-head .label{color:var(--gold-light);}
+  #countdown{font-size:11.5px; color:var(--sage); font-weight:500;}
   #countdown b{color:var(--maroon);}
 
-  .prayer-row{
-    display:grid;
-    grid-template-columns:repeat(5, 1fr);
-    gap:8px;
-  }
+  .prayer-row{display:grid; grid-template-columns:repeat(5, 1fr); gap:8px;}
   .p-card{
-    position:relative;
-    background:linear-gradient(180deg, #fff, var(--cream));
-    border:1px solid var(--line);
-    border-radius:50% 50% 8px 8px / 30% 30% 8px 8px;
-    padding:16px 4px 10px;
-    text-align:center;
+    position:relative; background:linear-gradient(180deg, var(--card), var(--cream));
+    border:1px solid var(--line); border-radius:50% 50% 8px 8px / 30% 30% 8px 8px;
+    padding:16px 4px 10px; text-align:center;
     transition:box-shadow .25s ease, transform .25s ease, border-color .25s ease;
   }
-  .p-card .pname{
-    font-size:10.5px;
-    color:var(--sage);
-    font-weight:600;
-    letter-spacing:0.03em;
-    margin-bottom:4px;
-  }
-  .p-card .ptime{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:13px;
-    color:var(--ink);
-    line-height:1.25;
-  }
-  .p-card .pjamat{
-    font-size:9.5px;
-    color:var(--gold-dim);
-    margin-top:3px;
-  }
-  .p-card.active{
-    border-color:var(--gold);
-    box-shadow:0 10px 22px rgba(201,162,75,0.30);
-    transform:translateY(-3px);
-  }
+  .p-card .pname{font-size:10.5px; color:var(--sage); font-weight:600; letter-spacing:0.03em; margin-bottom:4px;}
+  .p-card .ptime{font-family:'Fraunces', serif; font-weight:600; font-size:13px; color:var(--ink); line-height:1.25;}
+  .p-card .pjamat{font-size:9.5px; color:var(--gold-dim); margin-top:3px;}
+  .p-card.active{border-color:var(--gold); box-shadow:0 10px 22px rgba(201,162,75,0.30); transform:translateY(-3px);}
   .p-card.active .pname{color:var(--maroon);}
   .p-card.active::after{
-    content:"";
-    position:absolute; top:7px; right:50%; transform:translateX(50%);
-    width:6px; height:6px; border-radius:50%;
-    background:#2f9e63;
+    content:""; position:absolute; top:7px; right:50%; transform:translateX(50%);
+    width:6px; height:6px; border-radius:50%; background:#2f9e63;
     box-shadow:0 0 0 3px rgba(47,158,99,0.22);
   }
 
-  .loc-row{
-    display:flex; align-items:center; gap:8px; flex-wrap:wrap;
-    margin-top:12px; padding:10px 4px 2px;
-    border-top:1px dashed var(--line);
-  }
-  .loc-status{
-    font-size:11px; color:var(--teal); flex:1; min-width:140px; line-height:1.4;
-  }
+  .loc-row{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:12px; padding:10px 4px 2px; border-top:1px dashed var(--line);}
+  .loc-status{font-size:11px; color:var(--teal); flex:1; min-width:140px; line-height:1.4;}
+  html[data-theme="dark"] .loc-status{color:var(--sage);}
   .loc-status .dot{display:inline-block; width:6px;height:6px;border-radius:50%; background:var(--sage); margin-right:5px;}
   .loc-status.live .dot{background:#2f9e63;}
   .loc-status.err .dot{background:#c0524a;}
@@ -233,60 +197,94 @@
     border:1px solid var(--teal-deep); background:transparent; color:var(--teal-deep);
     padding:6px 11px; border-radius:20px; cursor:pointer; white-space:nowrap;
   }
+  html[data-theme="dark"] .loc-btn{color:var(--gold-light); border-color:var(--gold-dim);}
   .loc-btn.primary{background:var(--teal-deep); color:var(--cream);}
+  html[data-theme="dark"] .loc-btn.primary{background:var(--gold); color:var(--night); border-color:var(--gold);}
   .loc-btn:active{opacity:0.75;}
 
-  /* ================= MAIN ================= */
-  main{max-width:920px; margin:44px auto 0; padding:0 16px;}
+  /* ================= QUICK NAV ================= */
+  .quicknav{
+    position:sticky; top:0; z-index:20;
+    display:flex; gap:6px; overflow-x:auto;
+    max-width:920px; margin:22px auto 0; padding:8px 14px;
+    background:rgba(247,242,229,0.88); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  html[data-theme="dark"] .quicknav{background:rgba(11,33,29,0.88);}
+  .quicknav a{
+    flex:0 0 auto; text-decoration:none; font-size:12px; font-weight:600;
+    color:var(--teal-deep); background:var(--card); border:1px solid var(--line);
+    padding:7px 14px; border-radius:20px; white-space:nowrap;
+  }
+  html[data-theme="dark"] .quicknav a{color:var(--gold-light);}
 
-  .section-title{display:flex; align-items:center; gap:12px; margin:40px 0 16px;}
+  /* ================= FOCUS + WEEKLY WIDGETS ================= */
+  main{max-width:920px; margin:30px auto 0; padding:0 16px;}
+
+  .focus-card{
+    background:linear-gradient(135deg, var(--teal-deep), var(--teal));
+    color:var(--cream); border-radius:18px; padding:18px 20px;
+    box-shadow:var(--shadow-sm); margin-bottom:16px;
+  }
+  .focus-card .flabel{font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-light); margin-bottom:8px; font-weight:600;}
+  .focus-text{
+    font-family:'Tiro Bangla', serif; font-size:16px; line-height:1.6; min-height:26px;
+    outline:none; border-bottom:1px dashed rgba(232,213,160,0.4); padding-bottom:6px;
+  }
+  .focus-text:empty::before{content:"আজকের প্রধান লক্ষ্যটা এখানে লিখুন..."; opacity:0.55;}
+
+  .week-card{
+    background:var(--card); border:1px solid var(--line); border-radius:18px;
+    padding:16px 18px; box-shadow:var(--shadow-sm); margin-bottom:6px;
+  }
+  .week-card .wlabel{font-size:12px; font-weight:600; color:var(--teal-deep); margin-bottom:10px; font-family:'Tiro Bangla', serif;}
+  html[data-theme="dark"] .week-card .wlabel{color:var(--gold-light);}
+  .week-row{display:flex; justify-content:space-between; gap:4px;}
+  .wday{flex:1; text-align:center;}
+  .wday .wname{font-size:10px; color:var(--sage); margin-bottom:5px;}
+  .wday .wdot{
+    width:100%; aspect-ratio:1; border-radius:8px; background:var(--line);
+    display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--ink); font-weight:600;
+  }
+  .wday.today .wname{color:var(--maroon); font-weight:700;}
+
+  /* ================= TIMELINE ================= */
+  .section-title{display:flex; align-items:center; gap:12px; margin:34px 0 16px;}
   .section-title .num{
     font-family:'Fraunces', serif; font-weight:600; font-size:14px;
     color:var(--gold-dim); border:1.5px solid var(--gold); background:var(--card);
     width:32px;height:32px; border-radius:50%;
     display:flex; align-items:center; justify-content:center; flex-shrink:0;
   }
-  .section-title h2{
-    font-family:'Tiro Bangla', serif; font-size:clamp(17px, 4.2vw, 21px);
-    margin:0; color:var(--night); line-height:1.3;
-  }
+  .section-title h2{font-family:'Tiro Bangla', serif; font-size:clamp(17px, 4.2vw, 21px); margin:0; color:var(--ink); line-height:1.3;}
   .section-title .line{flex:1; height:1px; background:linear-gradient(90deg, var(--line), transparent);}
 
-  .card-block{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:18px;
-    box-shadow:var(--shadow-sm);
-    overflow:hidden;
-  }
+  .card-block{background:var(--card); border:1px solid var(--line); border-radius:18px; box-shadow:var(--shadow-sm); overflow:hidden; scroll-margin-top:60px;}
 
   .row{
-    position:relative;
-    display:grid;
-    grid-template-columns:96px 1fr;
-    gap:14px;
-    padding:14px 18px 14px 22px;
-    border-bottom:1px solid var(--line);
+    position:relative; display:grid; grid-template-columns:26px 90px 1fr; gap:12px;
+    align-items:start; padding:14px 18px 14px 14px; border-bottom:1px solid var(--line);
   }
   .row:last-child{border-bottom:none;}
-  .row::before{
-    content:"";
-    position:absolute; left:0; top:0; bottom:0; width:3px;
-    background:var(--sage); opacity:0.5;
-  }
+  .row::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--sage); opacity:0.5;}
   .row.prayer::before{background:var(--gold); opacity:1;}
   .row.prayer{background:linear-gradient(90deg, rgba(201,162,75,0.06), transparent 55%);}
 
-  .time{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:14px;
-    color:var(--teal-deep);
-    padding-top:2px;
-    word-break:break-word;
+  .chk{
+    width:19px; height:19px; margin-top:3px; border-radius:6px;
+    border:1.5px solid var(--gold-dim); background:transparent; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; padding:0;
   }
+  .chk.done{background:var(--gold); border-color:var(--gold);}
+  .chk.done::after{content:"✓"; color:var(--night); font-size:12px; font-weight:700;}
+
+  .time{font-family:'Fraunces', serif; font-weight:600; font-size:13.5px; color:var(--teal-deep); padding-top:2px; word-break:break-word;}
+  html[data-theme="dark"] .time{color:var(--gold-light);}
   .row.prayer .time{color:var(--maroon);}
-  .task{font-size:14.5px; line-height:1.55;}
+  html[data-theme="dark"] .row.prayer .time{color:#E39C8F;}
+  .task{font-size:14.5px; line-height:1.55; transition:opacity .2s ease;}
+  .row.checked .task{opacity:0.45; text-decoration:line-through; text-decoration-color:var(--sage);}
+  .row.checked .time{opacity:0.55;}
   .task .tag{
     display:inline-block; font-size:9.5px; letter-spacing:0.05em; text-transform:uppercase;
     background:var(--sage); color:#fff; padding:2px 9px; border-radius:20px;
@@ -298,37 +296,33 @@
   [contenteditable="true"]:hover{background:rgba(201,162,75,0.10);}
   [contenteditable="true"]:focus{background:rgba(201,162,75,0.20); box-shadow:0 0 0 2px var(--gold-light);}
 
-  .note-block{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:20px 20px 18px;
-    margin-top:18px;
-    box-shadow:var(--shadow-sm);
-  }
-  .note-block h3{
-    margin:0 0 10px; font-size:14px; color:var(--teal-deep); font-family:'Tiro Bangla', serif;
-    display:flex; align-items:center; gap:8px;
-  }
+  .note-block{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:20px 20px 18px; margin-top:18px; box-shadow:var(--shadow-sm);}
+  .note-block h3{margin:0 0 10px; font-size:14px; color:var(--teal-deep); font-family:'Tiro Bangla', serif; display:flex; align-items:center; gap:8px;}
+  html[data-theme="dark"] .note-block h3{color:var(--gold-light);}
   .note-block h3::before{content:""; width:16px; height:1px; background:var(--gold);}
   .note-block ul{margin:0; padding-left:18px; font-size:13.5px; line-height:1.75;}
 
-  .toolbar{max-width:920px; margin:0 auto; padding:22px 16px 0; display:flex; justify-content:flex-end; gap:10px;}
-  .btn{
-    font-family:'Inter',sans-serif; font-size:13px; font-weight:600;
-    border:1px solid var(--teal-deep); background:var(--teal-deep); color:var(--cream);
-    padding:10px 18px; border-radius:30px; cursor:pointer;
+  .reminder-card{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:var(--card); border:1px solid var(--line); border-radius:18px;
+    padding:14px 18px; margin-top:16px; box-shadow:var(--shadow-sm);
   }
+  .reminder-card .rtext{font-size:13px; line-height:1.5;}
+  .reminder-card .rtext b{color:var(--teal-deep);}
+  html[data-theme="dark"] .reminder-card .rtext b{color:var(--gold-light);}
+
+  .toolbar{max-width:920px; margin:0 auto; padding:22px 16px 0; display:flex; justify-content:flex-end; gap:10px;}
+  .btn{font-family:'Inter',sans-serif; font-size:13px; font-weight:600; border:1px solid var(--teal-deep); background:var(--teal-deep); color:var(--cream); padding:10px 18px; border-radius:30px; cursor:pointer;}
   .btn.secondary{background:transparent; color:var(--teal-deep);}
+  html[data-theme="dark"] .btn.secondary{color:var(--gold-light); border-color:var(--gold-dim);}
   .btn:hover{opacity:0.85;}
 
   .hint{text-align:center; font-size:11.5px; color:var(--sage); margin:12px auto 0; max-width:920px; padding:0 16px; line-height:1.6;}
-
   footer{text-align:center; margin-top:56px; font-family:'Amiri', serif; font-size:17px; color:var(--gold-dim);}
   footer .sep{display:block; width:36px; height:1px; background:var(--gold); margin:14px auto 0;}
 
   @media print{
-    .toolbar, .hint, .loc-row{display:none;}
+    .toolbar, .hint, .loc-row, .quicknav, .theme-toggle, .chk, .reminder-card{display:none;}
     body{background:#fff;}
     .wall{background:var(--teal-deep) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
   }
@@ -348,19 +342,20 @@
     .p-card .pjamat{font-size:8px;}
     .loc-status{font-size:10.5px; min-width:100%; order:1;}
     .loc-btn{font-size:10.5px; padding:6px 10px; flex:1; order:2; text-align:center;}
-    .row{grid-template-columns:74px 1fr; gap:10px; padding:12px 14px 12px 18px;}
-    .time{font-size:12px;}
+    .row{grid-template-columns:22px 68px 1fr; gap:8px; padding:12px 14px 12px 12px;}
+    .time{font-size:11.5px;}
     .task{font-size:13.5px;}
     .task .tag{display:block; width:fit-content; margin-bottom:4px;}
-    .section-title{gap:9px; margin:32px 0 14px;}
+    .section-title{gap:9px; margin:28px 0 14px;}
     .section-title .num{width:27px; height:27px; font-size:12px;}
     .note-block{padding:16px 15px;}
     .toolbar{justify-content:center; padding-top:16px;}
     .btn{flex:1; text-align:center;}
+    .reminder-card{flex-direction:column; align-items:flex-start;}
   }
 
   @media (max-width:380px){
-    .row{grid-template-columns:1fr; gap:4px;}
+    .row{grid-template-columns:20px 1fr; gap:6px;}
     .time{padding-top:0;}
     .p-card .ptime{font-size:9.5px;}
   }
@@ -369,10 +364,16 @@
 <body>
 
 <div class="wall">
+  <button class="theme-toggle" id="themeToggle" title="Dark/Light mode" aria-label="Toggle dark mode">🌙</button>
   <div class="eyebrow">Islamic • Productive • Balanced</div>
   <div class="niche">
+    <svg class="arch-ornament" width="52" height="40" viewBox="0 0 52 40" fill="none">
+      <path d="M4 38 V20 C4 9 13.5 2 26 2 C38.5 2 48 9 48 20 V38" stroke="#C9A24B" stroke-width="1.6" stroke-linecap="round"/>
+      <circle cx="26" cy="20" r="3" fill="#C9A24B"/>
+    </svg>
     <h1 contenteditable="true">আমার দৈনিক রুটিন</h1>
     <div class="subtitle">اَللّٰهُمَّ بَارِكْ لَنَا فِيْمَا رَزَقْتَنَا</div>
+    <div class="streak-badge" id="streakBadge">🔥 স্ট্রিক লোড হচ্ছে...</div>
     <div class="meta-row">
       <div class="pill">🏢 Office: <b contenteditable="true">7:00 AM – 3:30 PM</b></div>
       <div class="pill">🛌 Ghum: <b contenteditable="true">11:00 PM – 4:35 AM</b></div>
@@ -421,106 +422,145 @@
   </div>
 </div>
 
+<nav class="quicknav">
+  <a href="#sec-morning">🌅 ভোর</a>
+  <a href="#sec-office">🏢 অফিস</a>
+  <a href="#sec-afternoon">☕ বিকাল</a>
+  <a href="#sec-night">🌙 রাত</a>
+</nav>
+
 <main>
 
-  <div class="section-title reveal" style="animation-delay:.1s">
+  <div class="focus-card reveal" style="animation-delay:.08s">
+    <div class="flabel">🎯 আজকের প্রধান ফোকাস</div>
+    <div class="focus-text" id="focusText" contenteditable="true"></div>
+  </div>
+
+  <div class="week-card reveal" style="animation-delay:.1s">
+    <div class="wlabel">এই সপ্তাহের অগ্রগতি</div>
+    <div class="week-row" id="weekRow"></div>
+  </div>
+
+  <div class="section-title reveal" id="sec-morning" style="animation-delay:.1s">
     <div class="num">১</div>
     <h2>ভোর — Fajr থেকে Office</h2>
     <div class="line"></div>
   </div>
   <div class="card-block reveal" style="animation-delay:.12s">
-    <div class="row prayer">
+    <div class="row prayer" data-id="wake">
+      <button class="chk" data-id="wake"></button>
       <div class="time" contenteditable="true">4:35 AM</div>
       <div class="task" contenteditable="true"><span class="tag">Wake</span>ঘুম থেকে ওঠা, অজু, হালকা দোয়া</div>
     </div>
-    <div class="row prayer">
+    <div class="row prayer" data-id="fajr">
+      <button class="chk" data-id="fajr"></button>
       <div class="time" contenteditable="true">4:50 AM</div>
       <div class="task" contenteditable="true"><span class="tag">Salah</span>মসজিদে Fajr জামাত</div>
     </div>
-    <div class="row">
+    <div class="row" data-id="exercise">
+      <button class="chk" data-id="exercise"></button>
       <div class="time" contenteditable="true">5:05–5:35 AM</div>
       <div class="task" contenteditable="true"><span class="tag">Exercise</span>বাইরে হাঁটা / জগিং (৩০ মিনিট)</div>
     </div>
-    <div class="row">
+    <div class="row" data-id="freshup">
+      <button class="chk" data-id="freshup"></button>
       <div class="time" contenteditable="true">5:35–5:50 AM</div>
       <div class="task" contenteditable="true"><span class="tag">Fresh up</span>Shower + রেডি হওয়ার প্রস্তুতি</div>
     </div>
-    <div class="row">
+    <div class="row" data-id="productive1">
+      <button class="chk" data-id="productive1"></button>
       <div class="time" contenteditable="true">5:50–6:30 AM</div>
       <div class="task" contenteditable="true"><span class="tag">Productive</span>পড়াশোনা / স্কিল ডেভেলপমেন্ট / দিনের planning</div>
     </div>
-    <div class="row">
+    <div class="row" data-id="prep">
+      <button class="chk" data-id="prep"></button>
       <div class="time" contenteditable="true">6:30–7:00 AM</div>
       <div class="task" contenteditable="true"><span class="tag">Prep</span>রেডি হওয়া + অফিসের পথে রওনা</div>
     </div>
   </div>
 
-  <div class="section-title reveal" style="animation-delay:.1s">
+  <div class="section-title reveal" id="sec-office" style="animation-delay:.1s">
     <div class="num">২</div>
     <h2>অফিস সময়</h2>
     <div class="line"></div>
   </div>
   <div class="card-block reveal" style="animation-delay:.12s">
-    <div class="row">
+    <div class="row" data-id="office">
+      <button class="chk" data-id="office"></button>
       <div class="time" contenteditable="true">7:00 AM –<br>3:30 PM</div>
       <div class="task" contenteditable="true"><span class="tag">Work</span>অফিস (নাস্তা ও দুপুরের খাবার অফিসেই) — Dhuhr break এ নামাজ</div>
     </div>
   </div>
 
-  <div class="section-title reveal" style="animation-delay:.1s">
+  <div class="section-title reveal" id="sec-afternoon" style="animation-delay:.1s">
     <div class="num">৩</div>
     <h2>বিকাল — Office ফেরা থেকে Isha (Mix: কাজ + Rest)</h2>
     <div class="line"></div>
   </div>
   <div class="card-block reveal" style="animation-delay:.12s">
-    <div class="row">
+    <div class="row" data-id="rest1">
+      <button class="chk" data-id="rest1"></button>
       <div class="time" contenteditable="true">3:30–4:00 PM</div>
       <div class="task" contenteditable="true"><span class="tag">Rest</span>বাসায় ফেরা, রেস্ট, চা / হালকা কিছু</div>
     </div>
-    <div class="row prayer">
+    <div class="row prayer" data-id="asr">
+      <button class="chk" data-id="asr"></button>
       <div class="time" contenteditable="true">5:15 PM</div>
       <div class="task" contenteditable="true"><span class="tag">Salah</span>আসর জামাত</div>
     </div>
-    <div class="row">
+    <div class="row" data-id="work2">
+      <button class="chk" data-id="work2"></button>
       <div class="time" contenteditable="true">4:00–5:00 PM</div>
       <div class="task" contenteditable="true"><span class="tag">Work</span>হালকা কাজ / personal project / reading</div>
     </div>
-    <div class="row">
+    <div class="row" data-id="rest2">
+      <button class="chk" data-id="rest2"></button>
       <div class="time" contenteditable="true">5:00–5:45 PM</div>
       <div class="task" contenteditable="true"><span class="tag">Rest</span>Family time / relax</div>
     </div>
-    <div class="row prayer">
+    <div class="row prayer" data-id="maghrib">
+      <button class="chk" data-id="maghrib"></button>
       <div class="time" contenteditable="true">Maghrib</div>
       <div class="task" contenteditable="true"><span class="tag">Salah</span>মাগরিব নামাজ</div>
     </div>
-    <div class="row">
+    <div class="row" data-id="deenread">
+      <button class="chk" data-id="deenread"></button>
       <div class="time" contenteditable="true">Maghrib–Isha</div>
       <div class="task" contenteditable="true"><span class="tag">Deen</span>কুরআন তিলাওয়াত অথবা হালকা কাজ</div>
     </div>
-    <div class="row prayer">
+    <div class="row prayer" data-id="isha">
+      <button class="chk" data-id="isha"></button>
       <div class="time" contenteditable="true">8:30 PM</div>
       <div class="task" contenteditable="true"><span class="tag">Salah</span>ইশা জামাত + রাতের খাবার</div>
     </div>
   </div>
 
-  <div class="section-title reveal" style="animation-delay:.1s">
+  <div class="section-title reveal" id="sec-night" style="animation-delay:.1s">
     <div class="num">৪</div>
     <h2>রাত — Wind Down</h2>
     <div class="line"></div>
   </div>
   <div class="card-block reveal" style="animation-delay:.12s">
-    <div class="row">
+    <div class="row" data-id="reflect">
+      <button class="chk" data-id="reflect"></button>
       <div class="time" contenteditable="true">8:30–9:15 PM</div>
       <div class="task" contenteditable="true"><span class="tag">Reflect</span>দিনের রিভিউ + পরদিনের planning + দোয়া/জিকির</div>
     </div>
-    <div class="row">
+    <div class="row" data-id="unwind">
+      <button class="chk" data-id="unwind"></button>
       <div class="time" contenteditable="true">9:15–10:30 PM</div>
       <div class="task" contenteditable="true"><span class="tag">Unwind</span>ফোন কম, হালকা reading</div>
     </div>
-    <div class="row prayer">
+    <div class="row prayer" data-id="sleep">
+      <button class="chk" data-id="sleep"></button>
       <div class="time" contenteditable="true">11:00 PM</div>
       <div class="task" contenteditable="true"><span class="tag">Sleep</span>ঘুমাতে যাওয়া</div>
     </div>
+  </div>
+
+  <div class="reminder-card reveal" style="animation-delay:.13s">
+    <div class="rtext"><b>🔔 রিমাইন্ডার</b><br>নামাজ ও productive block শুরুর ১০ মিনিট আগে notification পাবেন (পেজ খোলা থাকা অবস্থায়)।</div>
+    <button class="loc-btn primary" id="notifBtn">চালু করুন</button>
   </div>
 
   <div class="note-block reveal" style="animation-delay:.14s" contenteditable="true">
@@ -530,6 +570,7 @@
       <li>Jogging এর route ও সময় (early morning) নিরাপদ কিনা খেয়াল রাখবেন।</li>
       <li>প্রথম ১–২ সপ্তাহ কঠিন লাগতে পারে — body adjust হতে সময় লাগে, ধৈর্য ধরে চালিয়ে যাবেন।</li>
       <li>উপরের নামাজের স্ট্রিপে calculated waqt দেখানো হয় (Aladhan API) — আপনার মসজিদের real জামাতের সময় নিচে ছোট করে লেখা আছে, সেটাই চূড়ান্ত ধরবেন।</li>
+      <li>চেকবক্স আর ফোকাস-বক্সের ডেটা আপনার এই ব্রাউজার/ফোনেই save থাকে (localStorage) — অন্য ডিভাইসে sync হয় না।</li>
       <li>এই ডকুমেন্টের যেকোনো লেখায় ক্লিক করে সরাসরি এডিট করতে পারবেন।</li>
     </ul>
   </div>
@@ -540,7 +581,7 @@
 <div class="toolbar">
   <button class="btn secondary" onclick="window.print()">🖨️ Print / Save as PDF</button>
 </div>
-<p class="hint">যেকোনো লেখায় ক্লিক করে সরাসরি এডিট করুন। ব্রাউজার রিলোড করলে পরিবর্তন থাকবে না। নামাজের সময় লোড করতে ইন্টারনেট সংযোগ প্রয়োজন।</p>
+<p class="hint">যেকোনো লেখায় ক্লিক করে সরাসরি এডিট করুন। ব্রাউজার রিলোড করলে টাস্কের লেখা পরিবর্তন থাকবে না, তবে checkbox/focus/theme মনে থাকবে। নামাজের সময় লোড করতে ইন্টারনেট সংযোগ প্রয়োজন।</p>
 
 <script>
 (function(){
@@ -551,11 +592,111 @@
   const refreshBtn = document.getElementById('refreshBtn');
   let timings = null;
 
+  function todayKey(){
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+  function safeGet(key){ try{ return localStorage.getItem(key); }catch(e){ return null; } }
+  function safeSet(key, val){ try{ localStorage.setItem(key, val); }catch(e){} }
+
+  /* ---------- THEME ---------- */
+  const themeBtn = document.getElementById('themeToggle');
+  function applyTheme(t){
+    document.documentElement.setAttribute('data-theme', t);
+    themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  }
+  applyTheme(safeGet('routine_theme') || 'light');
+  themeBtn.addEventListener('click', function(){
+    const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(cur); safeSet('routine_theme', cur);
+  });
+
+  /* ---------- FOCUS TEXT ---------- */
+  const focusEl = document.getElementById('focusText');
+  focusEl.textContent = safeGet('routine_focus_' + todayKey()) || '';
+  focusEl.addEventListener('input', function(){ safeSet('routine_focus_' + todayKey(), focusEl.textContent); });
+
+  /* ---------- CHECKBOXES + PROGRESS ---------- */
+  const allIds = Array.from(document.querySelectorAll('.chk')).map(function(b){ return b.getAttribute('data-id'); });
+
+  function getDayChecks(key){
+    try{ return JSON.parse(safeGet('routine_checks_' + key) || '{}'); }catch(e){ return {}; }
+  }
+  function setDayChecks(key, obj){ safeSet('routine_checks_' + key, JSON.stringify(obj)); }
+
+  function renderChecks(){
+    const checks = getDayChecks(todayKey());
+    document.querySelectorAll('.chk').forEach(function(btn){
+      const id = btn.getAttribute('data-id');
+      const done = !!checks[id];
+      btn.classList.toggle('done', done);
+      const row = btn.closest('.row');
+      if(row) row.classList.toggle('checked', done);
+    });
+    renderStreak();
+    renderWeek();
+  }
+
+  document.querySelectorAll('.chk').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const id = btn.getAttribute('data-id');
+      const key = todayKey();
+      const checks = getDayChecks(key);
+      checks[id] = !checks[id];
+      setDayChecks(key, checks);
+      renderChecks();
+    });
+  });
+
+  /* ---------- STREAK (based on Fajr checkbox) ---------- */
+  function renderStreak(){
+    let streak = 0;
+    let d = new Date();
+    const checkedToday = getDayChecks(todayKey())['fajr'];
+    if(!checkedToday) d.setDate(d.getDate() - 1); // count from yesterday if today not yet marked
+    while(true){
+      const key = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+      const checks = getDayChecks(key);
+      if(checks['fajr']){ streak++; d.setDate(d.getDate() - 1); } else { break; }
+      if(streak > 365) break;
+    }
+    const badge = document.getElementById('streakBadge');
+    if(streak > 0){
+      badge.innerHTML = '🔥 Fajr জামাত ধারাবাহিক <b>' + streak + '</b> দিন';
+    } else {
+      badge.innerHTML = '🕌 আজ থেকে Fajr streak শুরু করুন';
+    }
+  }
+
+  /* ---------- WEEKLY VIEW ---------- */
+  const dayNames = ['রবি','সোম','মঙ্গল','বুধ','বৃহ','শুক্র','শনি'];
+  function renderWeek(){
+    const row = document.getElementById('weekRow');
+    row.innerHTML = '';
+    for(let i=6; i>=0; i--){
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const key = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+      const checks = getDayChecks(key);
+      const doneCount = allIds.filter(function(id){ return checks[id]; }).length;
+      const pct = allIds.length ? Math.round((doneCount/allIds.length)*100) : 0;
+      const isToday = i === 0;
+      const wrap = document.createElement('div');
+      wrap.className = 'wday' + (isToday ? ' today' : '');
+      const alpha = pct === 0 ? 0.08 : 0.15 + (pct/100)*0.7;
+      wrap.innerHTML = '<div class="wname">' + dayNames[d.getDay()] + '</div>' +
+        '<div class="wdot" style="background:rgba(201,162,75,' + alpha.toFixed(2) + ')">' + (pct>0 ? pct+'%' : '') + '</div>';
+      row.appendChild(wrap);
+    }
+  }
+
+  renderChecks();
+
+  /* ---------- PRAYER TIMES ---------- */
   function setStatus(text, cls){
     statusEl.className = 'loc-status' + (cls ? ' ' + cls : '');
     statusEl.innerHTML = '<span class="dot"></span>' + text;
   }
-
   function to12h(t){
     if(!t) return '--:--';
     t = t.split(' ')[0];
@@ -565,7 +706,6 @@
     h = h % 12; if(h === 0) h = 12;
     return h + ':' + String(m).padStart(2,'0') + ' ' + ampm;
   }
-
   function toMinutes(t){
     const parts = t.split(' ')[0].split(':').map(Number);
     return parts[0]*60 + parts[1];
@@ -583,13 +723,9 @@
     document.querySelectorAll('.p-card').forEach(function(c){ c.classList.remove('active'); });
 
     let next = null;
-    for(let i=0;i<order.length;i++){
-      if(toMinutes(order[i][1]) > nowMin){ next = order[i]; break; }
-    }
+    for(let i=0;i<order.length;i++){ if(toMinutes(order[i][1]) > nowMin){ next = order[i]; break; } }
     let activeKey = order[order.length-1][0];
-    for(let i=0;i<order.length;i++){
-      if(toMinutes(order[i][1]) <= nowMin){ activeKey = order[i][0]; } else { break; }
-    }
+    for(let i=0;i<order.length;i++){ if(toMinutes(order[i][1]) <= nowMin){ activeKey = order[i][0]; } else { break; } }
     const activeCard = document.getElementById('p-' + activeKey);
     if(activeCard) activeCard.classList.add('active');
 
@@ -644,11 +780,61 @@
       { timeout: 8000 }
     );
   });
-
   refreshBtn.addEventListener('click', function(){ loadTimings(DHAKA.lat, DHAKA.lon, DHAKA.name); });
 
   loadTimings(DHAKA.lat, DHAKA.lon, DHAKA.name);
   setInterval(updateCountdownAndActive, 60000);
+
+  /* ---------- NOTIFICATIONS ---------- */
+  const notifBtn = document.getElementById('notifBtn');
+  let notifEnabled = safeGet('routine_notif') === '1';
+  function refreshNotifBtn(){ notifBtn.textContent = notifEnabled ? 'চালু আছে ✓' : 'চালু করুন'; }
+  refreshNotifBtn();
+
+  notifBtn.addEventListener('click', function(){
+    if(!('Notification' in window)){ alert('এই ব্রাউজারে notification সাপোর্ট নেই।'); return; }
+    Notification.requestPermission().then(function(perm){
+      if(perm === 'granted'){
+        notifEnabled = true; safeSet('routine_notif', '1'); refreshNotifBtn();
+        new Notification('রিমাইন্ডার চালু হয়েছে', { body: 'নামাজ ও productive block শুরুর ১০ মিনিট আগে জানানো হবে।' });
+      } else {
+        alert('Notification permission দেওয়া হয়নি।');
+      }
+    });
+  });
+
+  const firedToday = {};
+  function reminderTargets(){
+    const list = [
+      ['fajr', '04:50', 'ফজর জামাত'],
+      ['asr', '17:15', 'আসর জামাত'],
+      ['isha', '20:30', 'ইশা জামাত'],
+      ['prod1', '05:50', 'সকালের productive block'],
+      ['prod2', '16:00', 'বিকালের কাজের block'],
+      ['wind', '21:15', 'Wind down সময়'],
+      ['sleep', '23:00', 'ঘুমানোর সময়']
+    ];
+    if(timings && timings.Maghrib){
+      list.push(['maghrib', timings.Maghrib.split(' ')[0], 'মাগরিব নামাজ']);
+    }
+    return list;
+  }
+  function checkReminders(){
+    if(!notifEnabled || !('Notification' in window) || Notification.permission !== 'granted') return;
+    const now = new Date();
+    const nowMin = now.getHours()*60 + now.getMinutes();
+    const key = todayKey();
+    reminderTargets().forEach(function(t){
+      const parts = t[1].split(':').map(Number);
+      const targetMin = parts[0]*60 + parts[1] - 10;
+      const fireKey = key + '_' + t[0];
+      if(nowMin === targetMin && !firedToday[fireKey]){
+        firedToday[fireKey] = true;
+        new Notification(t[2] + ' — ১০ মিনিট বাকি', { body: 'এখনই প্রস্তুতি নিন।' });
+      }
+    });
+  }
+  setInterval(checkReminders, 30000);
 
   if('serviceWorker' in navigator){
     window.addEventListener('load', function(){
