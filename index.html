@@ -42,6 +42,15 @@
     --shadow-sm:0 8px 22px rgba(0,0,0,0.35);
   }
 
+  html[data-accent="emerald"]{
+    --night:#0A2018; --teal-deep:#123024; --teal:#1C4A36; --teal-soft:#276350;
+    --gold:#3E8E63; --gold-light:#9FCBAE; --gold-dim:#2E6B4A; --maroon:#2E6B4A;
+  }
+  html[data-accent="maroon"]{
+    --night:#241210; --teal-deep:#3A1F1C; --teal:#5C2E28; --teal-soft:#733A32;
+    --gold:#B5654A; --gold-light:#E3AF95; --gold-dim:#8A4A34; --maroon:#8A4A34; --sage:#B5654A;
+  }
+
   *{box-sizing:border-box;}
   html{-webkit-text-size-adjust:100%; scroll-behavior:smooth;}
   :focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
@@ -82,9 +91,18 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'%3E%3Cg fill='none' stroke='%23C9A24B' stroke-width='0.55' opacity='0.16'%3E%3Cpath d='M65 6 L124 65 L65 124 L6 65 Z'/%3E%3Ccircle cx='65' cy='65' r='42'/%3E%3Cpath d='M65 24 L106 65 L65 106 L24 65 Z'/%3E%3C/g%3E%3C/svg%3E");
     background-size:130px;
   }
+  .top-controls{
+    position:relative; z-index:5;
+    display:flex; justify-content:flex-end; align-items:center; gap:10px;
+    margin-bottom:8px;
+  }
+  .swatches{display:flex; gap:6px; background:rgba(246,241,228,0.08); border:1px solid rgba(201,162,75,0.35); border-radius:20px; padding:5px;}
+  .swatch{
+    width:20px; height:20px; border-radius:50%; border:2px solid rgba(255,255,255,0.5); cursor:pointer; padding:0;
+  }
+  .swatch.active{border-color:var(--gold-light); box-shadow:0 0 0 2px rgba(201,162,75,0.4);}
   .theme-toggle{
-    position:absolute; top:16px; right:16px; z-index:5;
-    width:36px; height:36px; border-radius:50%;
+    width:36px; height:36px; border-radius:50%; flex-shrink:0;
     border:1px solid rgba(201,162,75,0.5); background:rgba(246,241,228,0.08);
     color:var(--gold-light); font-size:16px; cursor:pointer;
     display:flex; align-items:center; justify-content:center;
@@ -98,6 +116,28 @@
     font-weight:600;
     margin-bottom:16px;
   }
+  .hijri-pill{
+    display:inline-block; font-size:11.5px; color:var(--teal); background:rgba(21,80,72,0.06);
+    border:1px solid rgba(14,59,54,0.15); padding:5px 12px; border-radius:20px; margin-bottom:12px;
+  }
+  html[data-theme="dark"] .hijri-pill{color:var(--sage);}
+
+  .ramadan-banner{
+    display:none;
+    max-width:920px; margin:14px auto 0; padding:0 16px;
+  }
+  .ramadan-banner.show{display:block;}
+  .ramadan-banner .rb-title{
+    background:linear-gradient(135deg, var(--maroon), var(--gold-dim)); color:#fff;
+    font-family:'Tiro Bangla', serif; font-size:14px; font-weight:700;
+    padding:10px 18px; border-radius:14px 14px 0 0; text-align:center;
+  }
+  .ramadan-banner .rb-row{
+    display:flex; background:var(--card); border:1px solid var(--line); border-top:none;
+    border-radius:0 0 14px 14px; padding:12px 18px; justify-content:space-around; box-shadow:var(--shadow-sm);
+  }
+  .ramadan-banner .rb-label{display:block; font-size:10.5px; color:var(--sage); text-align:center;}
+  .ramadan-banner .rb-time{display:block; font-family:'Fraunces', serif; font-weight:600; font-size:16px; color:var(--maroon); text-align:center;}
 
   .niche{
     position:relative;
@@ -113,7 +153,7 @@
     background:linear-gradient(180deg, rgba(19,46,40,0.98), rgba(19,46,40,0.94));
     box-shadow:0 22px 50px rgba(0,0,0,0.5);
   }
-  .arch-ornament{display:block; margin:0 auto 14px; opacity:0.85;}
+  .arch-ornament{display:block; margin:0 auto 14px; opacity:0.85; color:var(--gold);}
   h1{
     position:relative;
     font-family:'Tiro Bangla', serif;
@@ -234,6 +274,29 @@
   .focus-text:empty::before{content:"আজকের প্রধান লক্ষ্যটা এখানে লিখুন..."; opacity:0.55;}
 
   .today-divider{height:1px; background:rgba(232,213,160,0.22); margin:16px 0 14px;}
+
+  .twin-row{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px;}
+  .mini-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 16px; box-shadow:var(--shadow-sm);}
+  .mlabel{font-size:11.5px; font-weight:600; color:var(--teal-deep); margin-bottom:10px; font-family:'Tiro Bangla', serif;}
+  html[data-theme="dark"] .mlabel{color:var(--gold-light);}
+  .quran-row{display:flex; gap:6px; margin-bottom:8px;}
+  .mini-input{
+    flex:1; min-width:0; font-family:'Inter',sans-serif; font-size:12px;
+    border:1px solid var(--line); background:var(--cream); color:var(--ink);
+    border-radius:8px; padding:7px 9px; outline:none;
+  }
+  .mini-input:focus{border-color:var(--gold);}
+  .mini-input.small{flex:0 0 76px;}
+  .mini-sub{font-size:11px; color:var(--sage);}
+  .stopwatch-display{
+    font-family:'Fraunces', serif; font-weight:600; font-size:26px; color:var(--maroon);
+    text-align:center; margin:6px 0 10px;
+  }
+  .sw-btns{display:flex; gap:8px;}
+  .sw-btns .loc-btn{flex:1; text-align:center;}
+  @media (max-width:600px){
+    .twin-row{grid-template-columns:1fr; gap:10px;}
+  }
 
   .week-card .wlabel{font-size:11px; letter-spacing:0.06em; font-weight:600; color:var(--gold-light); margin-bottom:10px; font-family:'Inter', sans-serif; text-transform:uppercase;}
   .week-row{display:flex; justify-content:space-between; gap:5px;}
@@ -364,20 +427,36 @@
 <body>
 
 <div class="wall">
-  <button class="theme-toggle" id="themeToggle" title="Dark/Light mode" aria-label="Toggle dark mode">🌙</button>
+  <div class="top-controls">
+    <div class="swatches" id="swatches">
+      <button class="swatch" data-accent="gold" style="background:#C9A24B" title="Gold & Teal"></button>
+      <button class="swatch" data-accent="emerald" style="background:#3E8E63" title="Emerald & Ivory"></button>
+      <button class="swatch" data-accent="maroon" style="background:#B5654A" title="Maroon & Sand"></button>
+    </div>
+    <button class="theme-toggle" id="themeToggle" title="Dark/Light mode" aria-label="Toggle dark mode">🌙</button>
+  </div>
   <div class="eyebrow">Islamic • Productive • Balanced</div>
   <div class="niche">
     <svg class="arch-ornament" width="52" height="40" viewBox="0 0 52 40" fill="none">
-      <path d="M4 38 V20 C4 9 13.5 2 26 2 C38.5 2 48 9 48 20 V38" stroke="#C9A24B" stroke-width="1.6" stroke-linecap="round"/>
-      <circle cx="26" cy="20" r="3" fill="#C9A24B"/>
+      <path d="M4 38 V20 C4 9 13.5 2 26 2 C38.5 2 48 9 48 20 V38" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <circle cx="26" cy="20" r="3" fill="currentColor"/>
     </svg>
     <h1 contenteditable="true">আমার দৈনিক রুটিন</h1>
     <div class="subtitle">اَللّٰهُمَّ بَارِكْ لَنَا فِيْمَا رَزَقْتَنَا</div>
+    <div class="hijri-pill" id="hijriPill">হিজরি তারিখ লোড হচ্ছে...</div>
     <div class="streak-badge" id="streakBadge">🔥 স্ট্রিক লোড হচ্ছে...</div>
     <div class="meta-row">
       <div class="pill">🏢 Office: <b contenteditable="true">7:00 AM – 3:30 PM</b></div>
       <div class="pill">🛌 Ghum: <b contenteditable="true">11:00 PM – 4:35 AM</b></div>
     </div>
+  </div>
+</div>
+
+<div class="ramadan-banner" id="ramadanBanner">
+  <div class="rb-title">🌙 রমজান মোড সক্রিয়</div>
+  <div class="rb-row">
+    <div><span class="rb-label">সাহরি শেষ</span><span class="rb-time" id="rbSahri">--:--</span></div>
+    <div><span class="rb-label">ইফতার</span><span class="rb-time" id="rbIftar">--:--</span></div>
   </div>
 </div>
 
@@ -388,6 +467,7 @@
       <span id="countdown">লোড হচ্ছে...</span>
     </div>
     <div class="prayer-row">
+
       <div class="p-card" id="p-fajr">
         <div class="pname">ফজর</div>
         <div class="ptime" id="t-fajr">--:--</div>
@@ -438,6 +518,25 @@
     <div class="week-card">
       <div class="wlabel">এই সপ্তাহের অগ্রগতি</div>
       <div class="week-row" id="weekRow"></div>
+    </div>
+  </div>
+
+  <div class="twin-row reveal" style="animation-delay:.09s">
+    <div class="mini-card">
+      <div class="mlabel">📖 কুরআন ট্র্যাকার</div>
+      <div class="quran-row">
+        <input type="text" id="quranSurah" class="mini-input" placeholder="সূরা (যেমন: আল-বাকারা)">
+        <input type="text" id="quranPage" class="mini-input small" placeholder="পৃষ্ঠা/আয়াত">
+      </div>
+      <div class="mini-sub" id="quranLast">এখনো কিছু লগ করা হয়নি</div>
+    </div>
+    <div class="mini-card">
+      <div class="mlabel">🏃 এক্সারসাইজ টাইমার</div>
+      <div class="stopwatch-display" id="swDisplay">00:00</div>
+      <div class="sw-btns">
+        <button class="loc-btn primary" id="swStart">শুরু</button>
+        <button class="loc-btn" id="swReset">রিসেট</button>
+      </div>
     </div>
   </div>
 
@@ -563,6 +662,11 @@
     <button class="loc-btn primary" id="notifBtn">চালু করুন</button>
   </div>
 
+  <div class="reminder-card reveal" style="animation-delay:.135s">
+    <div class="rtext"><b>🔊 আজানের সময় সাউন্ড</b><br>প্রতিটা ওয়াক্ত শুরু হলে একটা ছোট chime বাজবে (পেজ খোলা থাকা অবস্থায়)। এটা প্রকৃত আজান রেকর্ডিং না, শুধু একটা সফট অ্যালার্ট টোন।</div>
+    <button class="loc-btn primary" id="soundBtn">চালু করুন</button>
+  </div>
+
   <div class="note-block reveal" style="animation-delay:.14s" contenteditable="true">
     <h3>মনে রাখার কিছু কথা</h3>
     <ul>
@@ -611,12 +715,102 @@
     applyTheme(cur); safeSet('routine_theme', cur);
   });
 
+  /* ---------- ACCENT PALETTE ---------- */
+  function applyAccent(a){
+    document.documentElement.setAttribute('data-accent', a);
+    document.querySelectorAll('.swatch').forEach(function(s){
+      s.classList.toggle('active', s.getAttribute('data-accent') === a);
+    });
+  }
+  applyAccent(safeGet('routine_accent') || 'gold');
+  document.querySelectorAll('.swatch').forEach(function(s){
+    s.addEventListener('click', function(){
+      const a = s.getAttribute('data-accent');
+      applyAccent(a); safeSet('routine_accent', a);
+    });
+  });
+
   /* ---------- FOCUS TEXT ---------- */
   const focusEl = document.getElementById('focusText');
   focusEl.textContent = safeGet('routine_focus_' + todayKey()) || '';
   focusEl.addEventListener('input', function(){ safeSet('routine_focus_' + todayKey(), focusEl.textContent); });
 
-  /* ---------- CHECKBOXES + PROGRESS ---------- */
+  /* ---------- QURAN TRACKER ---------- */
+  const surahEl = document.getElementById('quranSurah');
+  const pageEl = document.getElementById('quranPage');
+  const quranLastEl = document.getElementById('quranLast');
+  function loadQuran(){
+    try{
+      const data = JSON.parse(safeGet('routine_quran') || 'null');
+      if(data){
+        surahEl.value = data.surah || '';
+        pageEl.value = data.page || '';
+        if(data.surah || data.page){
+          quranLastEl.textContent = 'সর্বশেষ: ' + (data.surah || '') + (data.page ? ' — ' + data.page : '') + (data.date ? ' (' + data.date + ')' : '');
+        }
+      }
+    }catch(e){}
+  }
+  function saveQuran(){
+    const data = { surah: surahEl.value.trim(), page: pageEl.value.trim(), date: todayKey() };
+    safeSet('routine_quran', JSON.stringify(data));
+    if(data.surah || data.page){
+      quranLastEl.textContent = 'সর্বশেষ: ' + data.surah + (data.page ? ' — ' + data.page : '') + ' (' + data.date + ')';
+    }
+  }
+  surahEl.addEventListener('change', saveQuran);
+  pageEl.addEventListener('change', saveQuran);
+  loadQuran();
+
+  /* ---------- EXERCISE STOPWATCH ---------- */
+  const swDisplay = document.getElementById('swDisplay');
+  const swStart = document.getElementById('swStart');
+  const swReset = document.getElementById('swReset');
+  let swSeconds = 0, swRunning = false, swInterval = null;
+  function renderSw(){
+    const m = Math.floor(swSeconds/60), s = swSeconds%60;
+    swDisplay.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  }
+  swStart.addEventListener('click', function(){
+    swRunning = !swRunning;
+    swStart.textContent = swRunning ? 'পজ' : 'শুরু';
+    if(swRunning){
+      swInterval = setInterval(function(){ swSeconds++; renderSw(); }, 1000);
+    } else {
+      clearInterval(swInterval);
+    }
+  });
+  swReset.addEventListener('click', function(){
+    swRunning = false; clearInterval(swInterval); swSeconds = 0; renderSw();
+    swStart.textContent = 'শুরু';
+  });
+  renderSw();
+
+  /* ---------- HIJRI DATE + RAMADAN MODE ---------- */
+  const hijriPill = document.getElementById('hijriPill');
+  const ramadanBanner = document.getElementById('ramadanBanner');
+  let hijriMonth = null;
+  try{
+    const fmt = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', { day:'numeric', month:'long', year:'numeric' });
+    const parts = fmt.formatToParts(new Date());
+    const get = function(type){ const p = parts.find(function(x){ return x.type === type; }); return p ? p.value : ''; };
+    hijriPill.textContent = '🌙 ' + get('day') + ' ' + get('month') + ' ' + get('year') + ' হিজরি';
+    const monthNum = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', { month:'numeric' }).format(new Date());
+    hijriMonth = parseInt(monthNum, 10);
+  }catch(e){
+    hijriPill.textContent = '';
+  }
+  function updateRamadanBanner(){
+    if(hijriMonth === 9 && timings){
+      ramadanBanner.classList.add('show');
+      document.getElementById('rbSahri').textContent = to12h(timings.Fajr);
+      document.getElementById('rbIftar').textContent = to12h(timings.Maghrib);
+    } else {
+      ramadanBanner.classList.remove('show');
+    }
+  }
+
+
   const allIds = Array.from(document.querySelectorAll('.chk')).map(function(b){ return b.getAttribute('data-id'); });
 
   function getDayChecks(key){
@@ -757,6 +951,7 @@
       document.getElementById('t-isha').textContent = to12h(timings.Isha);
 
       updateCountdownAndActive();
+      updateRamadanBanner();
       setStatus('লাইভ — ' + label + ' (Aladhan API)', 'live');
     }catch(err){
       setStatus('লোড করা যায়নি — ইন্টারনেট চেক করুন।', 'err');
@@ -835,6 +1030,55 @@
     });
   }
   setInterval(checkReminders, 30000);
+
+  /* ---------- ADHAN-TIME CHIME (soft tone, not an actual adhan recording) ---------- */
+  const soundBtn = document.getElementById('soundBtn');
+  let soundEnabled = safeGet('routine_sound') === '1';
+  function refreshSoundBtn(){ soundBtn.textContent = soundEnabled ? 'চালু আছে ✓' : 'চালু করুন'; }
+  refreshSoundBtn();
+
+  function playChime(){
+    try{
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      const ctx = new Ctx();
+      const notes = [660, 880, 990];
+      notes.forEach(function(freq, i){
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine'; osc.frequency.value = freq;
+        osc.connect(gain); gain.connect(ctx.destination);
+        const start = ctx.currentTime + i*0.28;
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(0.18, start+0.05);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start+0.6);
+        osc.start(start); osc.stop(start+0.65);
+      });
+    }catch(e){}
+  }
+
+  soundBtn.addEventListener('click', function(){
+    soundEnabled = !soundEnabled;
+    safeSet('routine_sound', soundEnabled ? '1' : '0');
+    refreshSoundBtn();
+    if(soundEnabled) playChime();
+  });
+
+  const chimedToday = {};
+  function checkChime(){
+    if(!soundEnabled || !timings) return;
+    const now = new Date();
+    const nowMin = now.getHours()*60 + now.getMinutes();
+    const key = todayKey();
+    [['fajr', timings.Fajr], ['dhuhr', timings.Dhuhr], ['asr', timings.Asr], ['maghrib', timings.Maghrib], ['isha', timings.Isha]].forEach(function(p){
+      const targetMin = toMinutes(p[1]);
+      const fireKey = key + '_chime_' + p[0];
+      if(nowMin === targetMin && !chimedToday[fireKey]){
+        chimedToday[fireKey] = true;
+        playChime();
+      }
+    });
+  }
+  setInterval(checkChime, 30000);
 
   if('serviceWorker' in navigator){
     window.addEventListener('load', function(){
