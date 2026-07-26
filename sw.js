@@ -1,4 +1,4 @@
-const CACHE_NAME = 'daily-routine-cache-v2';
+const CACHE_NAME = 'daily-routine-cache-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -11,6 +11,7 @@ const ASSETS = [
   './js/routine.js',
   './js/tools.js',
   './js/prayer.js',
+  './js/ai.js',
   './js/main.js'
 ];
 

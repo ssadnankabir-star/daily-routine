@@ -272,6 +272,29 @@
   <footer>رَبِّ زِدْنِي عِلْمًا<span class="sep"></span></footer>
 </main>
 
+<!-- ===== AI Assistant ===== -->
+<button class="ai-fab" id="aiFab" aria-label="AI সহকারী খুলুন" aria-expanded="false">🤖</button>
+<div class="ai-backdrop" id="aiBackdrop"></div>
+<div class="ai-panel" id="aiPanel" role="dialog" aria-label="AI সহকারী">
+  <div class="ai-header">
+    <div class="ai-header-title">🤖 AI সহকারী</div>
+    <button class="ai-close" id="aiClose" aria-label="বন্ধ করুন">✕</button>
+  </div>
+  <div class="ai-messages" id="aiMessages"></div>
+  <div class="ai-suggestions">
+    <button class="ai-chip">প্ল্যান</button>
+    <button class="ai-chip">স্কোর</button>
+    <button class="ai-chip">অগ্রাধিকার</button>
+    <button class="ai-chip">সপ্তাহ</button>
+    <button class="ai-chip">নামাজ</button>
+    <button class="ai-chip">মোটিভেশন</button>
+  </div>
+  <div class="ai-input-row">
+    <input class="ai-input" id="aiInput" type="text" placeholder="কিছু জিজ্ঞেস করুন..." maxlength="300">
+    <button class="ai-send" id="aiSend" aria-label="পাঠান">➤</button>
+  </div>
+</div>
+
 <div class="toolbar">
   <button class="btn secondary" onclick="window.print()">🖨️ Print / Save as PDF</button>
 </div>
@@ -283,6 +306,7 @@
 <script src="js/routine.js"></script>
 <script src="js/tools.js"></script>
 <script src="js/prayer.js"></script>
+<script src="js/ai.js"></script>
 <script src="js/main.js"></script>
 
 </body>
