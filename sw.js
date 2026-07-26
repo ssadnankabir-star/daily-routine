@@ -1,9 +1,17 @@
-const CACHE_NAME = 'daily-routine-cache-v1';
+const CACHE_NAME = 'daily-routine-cache-v2';
 const ASSETS = [
-  './daily_routine.html',
+  './',
+  './index.html',
   './manifest.json',
   './icon-192.png',
-  './icon-512.png'
+  './icon-512.png',
+  './css/styles.css',
+  './js/storage.js',
+  './js/theme.js',
+  './js/routine.js',
+  './js/tools.js',
+  './js/prayer.js',
+  './js/main.js'
 ];
 
 self.addEventListener('install', function(event) {
