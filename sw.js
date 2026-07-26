@@ -1,4 +1,4 @@
-const CACHE_NAME = 'daily-routine-cache-v5';
+const CACHE_NAME = 'daily-routine-cache-v6';
 const ASSETS = [
   './',
   './index.html',

@@ -95,7 +95,7 @@
 <nav class="quicknav">
   <a href="#sec-analytics">📊 Analytics</a>
   <a href="#sec-calendar">📅 ক্যালেন্ডার</a>
-  <a href="#sec-habits">🌱 অভ্যাস</a>
+  <a href="#sec-habits" id="habitNavBtn">🌱 অভ্যাস</a>
   <a href="#sec-morning">🌅 ভোর</a>
   <a href="#sec-office">🏢 অফিস</a>
   <a href="#sec-afternoon">☕ বিকাল</a>
@@ -193,19 +193,6 @@
     </div>
     <div class="cal-grid" id="calGrid"></div>
     <div class="cal-detail" id="calDetail"></div>
-  </div>
-
-  <div class="section-title reveal" id="sec-habits" style="animation-delay:.1s">
-    <div class="num">🌱</div>
-    <h2>Habit Tracker</h2>
-    <div class="line"></div>
-  </div>
-  <div class="card-block reveal" style="animation-delay:.11s">
-    <div class="habit-add-row">
-      <input type="text" id="habitAddInput" placeholder="নতুন অভ্যাস যোগ করুন..." maxlength="40">
-      <button id="habitAddBtn">যোগ করুন</button>
-    </div>
-    <div class="habit-list" id="habitList"></div>
   </div>
 
   <div class="section-title reveal" id="sec-morning" style="animation-delay:.1s">
@@ -351,6 +338,35 @@
 </main>
 
 <!-- ===== AI Assistant ===== -->
+<!-- ===== Habit Tracker (side drawer) ===== -->
+<div class="habit-backdrop" id="habitBackdrop"></div>
+<div class="habit-drawer" id="habitDrawer" role="dialog" aria-label="Habit Tracker">
+  <div class="habit-drawer-header">
+    <div class="habit-drawer-title">🌱 Habit Tracker</div>
+    <div class="habit-header-actions">
+      <button class="habit-gear" id="habitSettingsBtn" aria-label="সেটিংস" aria-expanded="false">⚙️</button>
+      <button class="habit-close" id="habitCloseBtn" aria-label="বন্ধ করুন">✕</button>
+    </div>
+  </div>
+
+  <div class="habit-settings-panel" id="habitSettingsPanel">
+    <div class="habit-settings-row">
+      <span>নতুন অভ্যাস যোগ করার সময় মুছে ফেলার বাটন দেখাও</span>
+      <label class="habit-toggle">
+        <input type="checkbox" id="habitShowDeleteToggle">
+        <span class="habit-toggle-slider"></span>
+      </label>
+    </div>
+    <button class="habit-reset-btn" id="habitResetBtn">🗑️ সব হ্যাবিট ডেটা রিসেট করুন</button>
+  </div>
+
+  <div class="habit-add-row">
+    <input type="text" id="habitAddInput" placeholder="নতুন অভ্যাস যোগ করুন..." maxlength="40">
+    <button id="habitAddBtn">যোগ করুন</button>
+  </div>
+  <div class="habit-list" id="habitList"></div>
+</div>
+
 <button class="ai-fab" id="aiFab" aria-label="AI সহকারী খুলুন" aria-expanded="false">🤖</button>
 <div class="ai-backdrop" id="aiBackdrop"></div>
 <div class="ai-panel" id="aiPanel" role="dialog" aria-label="AI সহকারী">
