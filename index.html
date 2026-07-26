@@ -95,6 +95,7 @@
 <nav class="quicknav">
   <a href="#sec-analytics">📊 Analytics</a>
   <a href="#sec-calendar">📅 ক্যালেন্ডার</a>
+  <a href="#sec-habits">🌱 অভ্যাস</a>
   <a href="#sec-morning">🌅 ভোর</a>
   <a href="#sec-office">🏢 অফিস</a>
   <a href="#sec-afternoon">☕ বিকাল</a>
@@ -136,6 +137,7 @@
     <div class="num">📊</div>
     <h2>Analytics Dashboard</h2>
     <div class="line"></div>
+    <button class="cal-nav-btn" id="analyticsToggle" aria-label="Analytics খুলুন/বন্ধ করুন" aria-expanded="false">▾</button>
   </div>
   <div class="card-block reveal" id="analyticsBlock" style="animation-delay:.1s">
     <div class="stat-grid">
@@ -191,6 +193,19 @@
     </div>
     <div class="cal-grid" id="calGrid"></div>
     <div class="cal-detail" id="calDetail"></div>
+  </div>
+
+  <div class="section-title reveal" id="sec-habits" style="animation-delay:.1s">
+    <div class="num">🌱</div>
+    <h2>Habit Tracker</h2>
+    <div class="line"></div>
+  </div>
+  <div class="card-block reveal" style="animation-delay:.11s">
+    <div class="habit-add-row">
+      <input type="text" id="habitAddInput" placeholder="নতুন অভ্যাস যোগ করুন..." maxlength="40">
+      <button id="habitAddBtn">যোগ করুন</button>
+    </div>
+    <div class="habit-list" id="habitList"></div>
   </div>
 
   <div class="section-title reveal" id="sec-morning" style="animation-delay:.1s">
@@ -367,6 +382,7 @@
 <script src="js/storage.js"></script>
 <script src="js/theme.js"></script>
 <script src="js/routine.js"></script>
+<script src="js/habits.js"></script>
 <script src="js/tools.js"></script>
 <script src="js/prayer.js"></script>
 <script src="js/ai.js"></script>
