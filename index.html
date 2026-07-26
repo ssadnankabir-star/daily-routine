@@ -93,6 +93,8 @@
 </div>
 
 <nav class="quicknav">
+  <a href="#sec-analytics">📊 Analytics</a>
+  <a href="#sec-calendar">📅 ক্যালেন্ডার</a>
   <a href="#sec-morning">🌅 ভোর</a>
   <a href="#sec-office">🏢 অফিস</a>
   <a href="#sec-afternoon">☕ বিকাল</a>
@@ -128,6 +130,67 @@
         <button class="loc-btn" id="swReset">রিসেট</button>
       </div>
     </div>
+  </div>
+
+  <div class="section-title reveal" id="sec-analytics" style="animation-delay:.095s">
+    <div class="num">📊</div>
+    <h2>Analytics Dashboard</h2>
+    <div class="line"></div>
+  </div>
+  <div class="card-block reveal" id="analyticsBlock" style="animation-delay:.1s">
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">আজকের সম্পন্ন</div>
+        <div class="stat-value" id="statToday">—</div>
+        <div class="stat-bar" data-for="statToday"><i></i></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">সাপ্তাহিক গড়</div>
+        <div class="stat-value" id="statWeek">—</div>
+        <div class="stat-bar" data-for="statWeek"><i></i></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">মাসিক গড়</div>
+        <div class="stat-value" id="statMonth">—</div>
+        <div class="stat-bar" data-for="statMonth"><i></i></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">নামাজ ধারাবাহিকতা</div>
+        <div class="stat-value" id="statPrayer">—</div>
+        <div class="stat-bar" data-for="statPrayer"><i></i></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">🔥 বর্তমান Fajr Streak</div>
+        <div class="stat-value" id="statCurStreak">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">🏆 সর্বোচ্চ Streak</div>
+        <div class="stat-value" id="statLongStreak">—</div>
+      </div>
+    </div>
+    <div class="chart-wrap"><canvas id="weeklyChart"></canvas></div>
+    <div class="heatmap-wrap">
+      <div class="heatmap-title">গত ৩৫ দিনের অগ্রগতি</div>
+      <div class="heatmap" id="heatmap"></div>
+    </div>
+  </div>
+
+  <div class="section-title reveal" id="sec-calendar" style="animation-delay:.1s">
+    <div class="num">📅</div>
+    <h2>ক্যালেন্ডার</h2>
+    <div class="line"></div>
+  </div>
+  <div class="card-block reveal" style="animation-delay:.11s">
+    <div class="cal-header">
+      <button class="cal-nav-btn" id="calPrev" aria-label="আগের মাস">‹</button>
+      <div class="cal-month-label" id="calMonthLabel">—</div>
+      <button class="cal-nav-btn" id="calNext" aria-label="পরের মাস">›</button>
+    </div>
+    <div style="text-align:center; padding-bottom:6px;">
+      <button class="cal-today-btn" id="calToday">আজকে যাও</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-detail" id="calDetail"></div>
   </div>
 
   <div class="section-title reveal" id="sec-morning" style="animation-delay:.1s">
@@ -307,6 +370,9 @@
 <script src="js/tools.js"></script>
 <script src="js/prayer.js"></script>
 <script src="js/ai.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="js/analytics.js"></script>
+<script src="js/calendar.js"></script>
 <script src="js/main.js"></script>
 
 </body>
