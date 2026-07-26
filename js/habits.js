@@ -88,10 +88,21 @@
 
   /* ---------- RENDER ---------- */
   document.addEventListener('DOMContentLoaded', function () {
+    var drawer = document.getElementById('habitDrawer');
+    var backdrop = document.getElementById('habitBackdrop');
+    var navBtn = document.getElementById('habitNavBtn');
+    var closeBtn = document.getElementById('habitCloseBtn');
+    var gearBtn = document.getElementById('habitSettingsBtn');
+    var settingsPanel = document.getElementById('habitSettingsPanel');
+    var showDeleteToggle = document.getElementById('habitShowDeleteToggle');
+    var resetBtn = document.getElementById('habitResetBtn');
     var listEl = document.getElementById('habitList');
     var addInput = document.getElementById('habitAddInput');
     var addBtn = document.getElementById('habitAddBtn');
     if (!listEl) return;
+
+    var showDeleteAll = RD.safeGet('habit_show_delete_all') === '1';
+    if (showDeleteToggle) showDeleteToggle.checked = showDeleteAll;
 
     function escapeHtml(s) {
       return String(s).replace(/[&<>"']/g, function (c) {
@@ -110,6 +121,7 @@
         var streak = currentStreak(h.id);
         var week = weekStatus(h.id);
         var pct = monthPercent(h.id);
+        var canDelete = h.custom || showDeleteAll;
 
         var card = document.createElement('div');
         card.className = 'habit-card' + (done ? ' habit-done' : '');
@@ -120,16 +132,21 @@
 
         card.innerHTML =
           '<div class="habit-top">' +
-          '<button class="habit-check" data-id="' + h.id + '" aria-label="টিক দিন">' + (done ? '✅' : '⬜') + '</button>' +
+          '<button class="habit-check' + (done ? ' checked' : '') + '" data-id="' + h.id + '" aria-label="টিক দিন">' +
+          '<span class="habit-icon-badge">' + h.icon + '</span>' +
+          '</button>' +
           '<div class="habit-info">' +
-          '<div class="habit-name">' + h.icon + ' ' + escapeHtml(h.name) + '</div>' +
+          '<div class="habit-name-row">' +
+          '<span class="habit-name">' + escapeHtml(h.name) + '</span>' +
+          (streak > 0 ? '<span class="habit-streak-chip">🔥 ' + streak + '</span>' : '') +
+          '</div>' +
           '<div class="habit-week">' + weekDots + '</div>' +
+          '<div class="habit-progress-row">' +
+          '<div class="habit-progress-bar"><i style="width:' + pct + '%"></i></div>' +
+          '<span class="habit-progress-pct">' + pct + '%</span>' +
           '</div>' +
-          '<div class="habit-stats">' +
-          '<div class="habit-streak">🔥 ' + streak + '</div>' +
-          '<div class="habit-pct">' + pct + '%</div>' +
           '</div>' +
-          (h.custom ? '<button class="habit-del" data-id="' + h.id + '" aria-label="মুছুন">✕</button>' : '') +
+          (canDelete ? '<button class="habit-del" data-id="' + h.id + '" aria-label="মুছুন">✕</button>' : '') +
           '</div>';
         listEl.appendChild(card);
       });
@@ -164,6 +181,50 @@
       });
       addInput.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') { e.preventDefault(); addBtn.click(); }
+      });
+    }
+
+    /* ---------- DRAWER OPEN/CLOSE ---------- */
+    function openDrawer() {
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      navBtn.setAttribute('aria-expanded', 'true');
+      render();
+    }
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      settingsPanel.classList.remove('open');
+      gearBtn.setAttribute('aria-expanded', 'false');
+      navBtn.setAttribute('aria-expanded', 'false');
+    }
+    if (navBtn) {
+      navBtn.addEventListener('click', function (e) { e.preventDefault(); openDrawer(); });
+    }
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+    /* ---------- SETTINGS PANEL ---------- */
+    if (gearBtn) {
+      gearBtn.addEventListener('click', function () {
+        var isOpen = settingsPanel.classList.toggle('open');
+        gearBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    }
+    if (showDeleteToggle) {
+      showDeleteToggle.addEventListener('change', function () {
+        showDeleteAll = showDeleteToggle.checked;
+        RD.safeSet('habit_show_delete_all', showDeleteAll ? '1' : '0');
+        render();
+      });
+    }
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        if (!confirm('আজ থেকে সব হ্যাবিট লগ ও স্ট্রিক মুছে যাবে (অভ্যাসের তালিকা থাকবে)। নিশ্চিত?')) return;
+        RD.listKeysWithPrefix('habit_log_').forEach(function (k) {
+          try { localStorage.removeItem(k); } catch (e) { /* ignore */ }
+        });
+        render();
       });
     }
 
