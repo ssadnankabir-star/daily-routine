@@ -240,7 +240,21 @@
     return 'Expense Tracker মডিউলটা এখনো তৈরি হয়নি — এটা পরের ধাপে যোগ হবে। তখন থেকে আমি আপনার আসল খরচের ডেটা বিশ্লেষণ করে দিতে পারব (এখন placeholder সংখ্যা দেখিয়ে বিভ্রান্ত করব না)।';
   }
   function respHabit() {
-    return 'আলাদা Habit Tracker মডিউলটা এখনো তৈরি হয়নি। তবে আপনার দৈনিক checklist থেকে আমি Fajr streak আর সামগ্রিক completion দেখতে পারছি — জিজ্ঞেস করুন "score" বা "সপ্তাহ" লিখে।';
+    if (!RD.habits) return 'হ্যাবিট ট্র্যাকার লোড হচ্ছে না — পেজ রিফ্রেশ করে দেখুন।';
+    var habits = RD.habits.getHabits();
+    if (!habits.length) return 'এখনো কোনো অভ্যাস যোগ করা হয়নি — Habit Tracker সেকশনে গিয়ে যোগ করুন।';
+    var overall = RD.habits.overallTodayPercent();
+    var rows = habits.map(function (h) {
+      return { name: h.name, icon: h.icon, streak: RD.habits.currentStreak(h.id), pct: RD.habits.monthPercent(h.id) };
+    });
+    rows.sort(function (a, b) { return b.streak - a.streak; });
+    var best = rows[0], worst = rows[rows.length - 1];
+    var html = '<b>আজকের অভ্যাস সম্পন্ন: ' + overall + '%</b><br><br>';
+    html += '🔥 সবচেয়ে ভালো: ' + best.icon + ' ' + best.name + ' (streak ' + best.streak + ' দিন, এ মাসে ' + best.pct + '%)<br>';
+    if (rows.length > 1) {
+      html += '⚠️ মনোযোগ দরকার: ' + worst.icon + ' ' + worst.name + ' (streak ' + worst.streak + ' দিন, এ মাসে ' + worst.pct + '%)';
+    }
+    return html;
   }
 
   function respHelp() {

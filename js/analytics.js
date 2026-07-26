@@ -138,9 +138,23 @@
     });
 
     // Weekly bar chart (Chart.js, loaded via CDN in index.html)
+    // NOTE: chart creation is deferred until the Analytics section is
+    // first expanded — Chart.js measures the canvas at construction
+    // time, and a hidden/zero-height container would produce a
+    // broken, badly-sized chart even after the section opens later.
     var dayNames = ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহ', 'শুক্র', 'শনি'];
     var canvas = document.getElementById('weeklyChart');
-    if (canvas && window.Chart) {
+    var chartBuilt = false;
+
+    function buildChart() {
+      if (chartBuilt || !canvas) return;
+      chartBuilt = true;
+      if (!window.Chart) {
+        canvas.replaceWith(Object.assign(document.createElement('div'), {
+          className: 'chart-fallback', textContent: 'চার্ট লোড করতে ইন্টারনেট প্রয়োজন।'
+        }));
+        return;
+      }
       var styles = getComputedStyle(document.documentElement);
       var gold = styles.getPropertyValue('--gold').trim() || '#C9A24B';
       var teal = styles.getPropertyValue('--teal-deep').trim() || '#0E3B36';
@@ -159,11 +173,17 @@
           }
         }
       });
-    } else if (canvas) {
-      // Chart.js failed to load (e.g. offline, CDN blocked) — degrade gracefully.
-      canvas.replaceWith(Object.assign(document.createElement('div'), {
-        className: 'chart-fallback', textContent: 'চার্ট লোড করতে ইন্টারনেট প্রয়োজন।'
-      }));
+    }
+
+    // Collapse/expand toggle — Analytics starts hidden by default.
+    var toggleBtn = document.getElementById('analyticsToggle');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', function () {
+        var isOpen = root.classList.toggle('expanded');
+        toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        toggleBtn.textContent = isOpen ? '▴' : '▾';
+        if (isOpen) buildChart();
+      });
     }
 
     // Heatmap: last 35 days, 5 rows x 7 cols (like a contribution graph)
