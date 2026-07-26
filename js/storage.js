@@ -49,4 +49,18 @@ window.RD = window.RD || {};
     return RD.safeSet(key, JSON.stringify(obj));
   };
 
+  // Returns every localStorage key starting with `prefix`. Used by
+  // Calendar/Analytics to scan ALL historical daily records (not just
+  // a fixed recent window like the 7-day week strip does).
+  RD.listKeysWithPrefix = function (prefix) {
+    var out = [];
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf(prefix) === 0) out.push(k);
+      }
+    } catch (e) { /* storage unavailable */ }
+    return out;
+  };
+
 })(window.RD);
